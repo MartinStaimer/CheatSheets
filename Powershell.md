@@ -34,3 +34,24 @@ Einer DateTime Werte zuweisen:
 ```powershell
 $VariablenName = "10/06/2022 00:00:00"
 ```
+
+
+## Dateien und Verzeichnisse
+
+Spezielle Dateien ab einem bestimmten Ordner rekursiv mit definiertem Datum in Variable speichern:
+```powershell
+$items = Get-ChildItem -Path C:\Folder\ -Recurse -include *.pdf | Where-Object {$_.CreationTime -ge "month/day/year hour:minute:second"}
+
+```
+
+Durch Variablen iterieren und z.B. in Zielordner kopieren:
+```powershell
+foreach($item in $items)
+{   
+   
+   $itempath = $item.DirectoryName + '\' +$item.Name 
+
+   copy-item -Path $itempath -Destination C:\Test\
+    
+}
+```
