@@ -27,6 +27,16 @@ Enter-PSSession -Id 1
 Befehle automatisiert auf mehrern Rechnern per Remoteshell ausführen:
 
 ```powershell
+type C:\TEST\COMPUTERS.txt
+
+Host1
+Host2
+Host3
+
+```
+
+
+```powershell
 $computerList = Get-Content C:\Test\Computers.txt | New-PSSession -credentials {CRED}
 foreach($computer in $computerList)
 {
