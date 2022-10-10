@@ -24,6 +24,17 @@ Verbindung oeffnen:
 Enter-PSSession -Id 1
 ```
 
+Befehle automatisiert auf mehrern Rechnern per Remoteshell ausführen:
+
+```powershell
+$computerList = Get-Content C:\Test\Computers.txt | New-PSSession -credentials {CRED}
+foreach($computer in $computerList)
+{
+    {COMMANDS ON REMOTE SYSTEM}
+    Remove-PSSession $computer
+}
+```
+
 ## DateTime Powershell
 
 Variable als DateTime deklarieren:
