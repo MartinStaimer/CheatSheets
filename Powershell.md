@@ -45,6 +45,14 @@ foreach($computer in $computerList)
 }
 ```
 
+Commands auf Remotesystem über PSSession:
+
+```powershell
+Invoke-Command -Session {PSSESSION} -SctiptBlock { {auszufuhrende Powershell Befehle} }
+```
+
+
+
 ## DateTime Powershell
 
 Variable als DateTime deklarieren:
