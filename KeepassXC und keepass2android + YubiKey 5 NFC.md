@@ -1,4 +1,4 @@
-Folgende Anlaeitungen haben gut Funktioniert!
+Folgende Anleitungen haben gut Funktioniert!
 
 https://curius.de/2021/02/yubikey-teil-iv-keepassxc-absichern/
 
