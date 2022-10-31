@@ -223,10 +223,8 @@ dann umcodieren
 
 und austauschen  
 
-`uf www.base64decode.org können solche Kodierten Strings wieder zurückkodiert werden``:
-www.base64decode.org
+Auf www.base64decode.org können solche Kodierten Strings wieder zurückkodiert werden.
   
-
 mit Curl könnten anschließen falsche cookies erstellt werden:
 
 `curl -H "Cookie: session=eyJpZCI6MSwiYWRtaW4iOnRydWV9==; Max-Age=3600;" http://domain.xxx`
