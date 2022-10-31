@@ -17,8 +17,3 @@ imp os from
 new-pssession -computer {COMPUTERNAME} -credendtials {CREDS}
 ```
 
-# Redit
-
-## new Redit
-
-### newer Redit
