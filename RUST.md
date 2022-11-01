@@ -229,6 +229,58 @@ let (a,b,c,c) = tup;
 Doku:
 https://doc.rust-lang.org/std/keyword.struct.html
 
+Um ein Struct auszugeben muss `#[derive(Debug)]` angegeben werden.
+
+```rust
+#[derive(Debug)]
+struct Circle {
+	radius: f64,
+	location_x: f64,
+	location_y: f64,
+}
+
+fn main(){
+	let new_circ = Circle {
+	    radius: 25.0,
+        location_x: 10.0,
+        location_y: 298.0,
+	 };
+    println!("{:?}", new_circ);
+}
+```
+
+## Struct Functions
+
+mit `impl` wird die Funktion dem gleichbenannten Struct zugeordnet. Mit `&self` werden auf die Member zugegriffen entrspricht z.B.: `this` in C#.
+Die allgemeine Schreibweise von Funktionen ist der Lambda Ausdruck:
+
+`fn name_funktion(PARAMETER) -> RUECKGABEWERT {}`
+
+```rust
+#[derive(Debug)]
+struct Circle {
+	radius: f64,
+	location_x: f64,
+	location_y: f64,
+}
+
+impl Circle {
+    fn area(&self) -> f64 {
+        self.radius * self.radius * std::f64::consts::PI
+    }
+}
+
+fn main(){
+	let new_circ = Circle {
+	    radius: 25.0,
+        location_x: 10.0,
+        location_y: 298.0,
+	 };
+    println!("{:?}", new_circ);
+    
+    println!("{:?}", new_circ.area());
+}
+```
 
 # Schleifen
 
