@@ -42,6 +42,25 @@ cd {Projektordner}
 cargo run
 ```
 
+Externe Pakete:
+https://crates.io/
+
+einbinden von Paketen in der Cargo.toml (in diesem Bsp.: "rand"):
+```yaml
+[dependencies]
+rand = "0.8.5"
+```
+
+anschießend in der `*.rs`:
+
+```rust
+use rand::*; // Alles verwenden
+
+// oder
+
+use rand::Rng; // Nur Rng verwenden
+```
+
 # STDOUT, STDERROR and format
 
 ```rust
@@ -204,6 +223,18 @@ for c in test_String.chars() {
 
 ```
 
+Casten von Strings (Bespiel):
+Mit `.trim()` werden Leerzeichen entfernt. 
+Mit `.parse()::<u32>() {}` wird gecastet. Die Angabe `<TYPE>` definiert den Typ in den Geparst wird.
+```rust
+let number = String::from("   34 "); 
+
+let string_as_number = match number.trim().parse::<u32>() {
+	Ok(num) => num,
+    Err(_) => 0,
+};
+```
+
 # Tupel
 
 Doku:
@@ -338,6 +369,76 @@ match number {
 
 ```
 
+
+# IF LET
+
+Doku:
+https://doc.rust-lang.org/rust-by-example/flow_control/if_let.html
+
+# WHILE LET
+
+Doku:
+https://doc.rust-lang.org/rust-by-example/flow_control/while_let.html
+
+`into_iter()` => https://doc.rust-lang.org/std/iter/trait.IntoIterator.html
+
+```rust
+fn iterate_through_nums() {
+    let mut nums = (0..11).into_iter();  
+
+    while let Some(num) = nums.next() {
+        println!("{}", num);
+    }
+}
+
+fn main() {
+    iterate_through_nums();
+}
+```
+
+# Functions
+
+Doku:
+https://doc.rust-lang.org/book/ch03-03-how-functions-work.html
+
+Start der Funktion immer mit keyword `fn`.
+Parameter werden so beschrieben `[NAME_VARAIBLE]: [TYPE]` z.B.: `test: String`
+Rückgabewert wird mit einem Lambdaausdruck `->` und dem Typen angegben z.B.: `-> f64` 
+Return innerhalb Funktion wie im unteren Bsp. (Kein Semikolon am Ende der Zeile -> RETURN)
+
+```rust
+fn my_test_func(x: i32) -> i32 {
+	 x * x
+}
+
+// Auch möglich
+fn my_test_func(x: i32) -> i32 {
+	return x * x;
+}
+
+// Oder ohne Semikolon
+fn my_test_func(x: i32) -> i32 {
+	return x * x
+}
+
+```
+
+# Closure
+
+Doku:
+https://doc.rust-lang.org/book/ch13-01-closures.html
+https://doc.rust-lang.org/rust-by-example/fn/closures.html
+https://doc.rust-lang.org/reference/types/closure.html
+
+Die Parameter kommen zwischen die zwei `||` der Rückgabewert wird mit einem `->` gestartet und mit dem Typen beendet. Die Operation kommt zwischen `{ }`.
+Vergleichbar einer Lambda Function von C#.
+
+```rust
+let closureTest = |x: i32| -> i32 {x * x};
+
+let erg = closureTest(36);
+```
+
 # Structs
 
 Doku:
@@ -459,3 +560,26 @@ let us = User::Username(String::from("BOB"));
 
 let age = User::Userage(16);
 ```
+
+Spezielle Anwedung:
+```rust
+fn addition(x: u32, y: Option<u32>) -> u32) {
+	match y {
+		Some(val) => x + val,
+		None => x,
+	}
+}
+
+fn main(){
+	let y: Option<u32> = Some(67);
+
+	println!("{}", addition(20, y));
+}
+```
+
+Mehr Info zu `Option<T>`:
+
+Doku:
+https://doc.rust-lang.org/std/option/index.html
+
+
