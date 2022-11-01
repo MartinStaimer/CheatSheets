@@ -224,6 +224,120 @@ tup.1 // Zugriff per index auf inhalt => startet bei index 0
 let (a,b,c,c) = tup;
 ```
 
+# Schleifen
+
+## LOOP
+
+Doku:
+https://doc.rust-lang.org/std/keyword.loop.html
+
+Ende des loop's per `break`. 
+
+```rust
+let mut counter = 0;
+
+loop {
+	counter += 1;
+	// Do Something
+
+	if counter == 10 {
+		break;
+	}
+}
+```
+
+Loops können auch Namen gegeben werden:
+
+```rust
+let mut counter = 0;
+
+'nameOfLoop: loop {
+	counter += 1;
+	// Do Something
+
+	if counter == 10 {
+		break 'nameOfLoop;
+	}
+}
+```
+
+
+## WHILE
+
+Doku:
+https://doc.rust-lang.org/std/keyword.while.html
+
+```rust
+let mut counter = 0;
+
+while counter < 10 {
+	counter += 1;
+	// Do Something
+}
+
+// Oder Auch wie bei Loops mit Namen
+let mut counter = 0;
+
+'while_name: while counter < 10 {
+	counter += 1;
+	// Do Something
+}
+```
+
+## FOR
+
+Doku:
+https://doc.rust-lang.org/std/keyword.for.html
+
+```rust
+for i in variable {
+	...
+}
+
+// Über Iterierbare Variablen wie z.B.: Arrays
+let count = 0..11;
+
+for item in count {
+	// Do Something with item
+}
+```
+
+Mit Iterator `iter`:
+`(i, &test)` stellen einen Tupel dar.
+Die `string` Variable wird erst in ein byte `.as_bytes()` gewandelt und anschließend mit `.iter().enumerate()` Enumerierbar gemacht.
+
+```rust
+let hello = String::from("Hello World");
+
+for (i, &test) in hello.as_bytes().iter().enumerate(){
+        println!("{:?}",&test);
+    }
+```
+
+Diese variante generiert aber einen Kompilerwarnung da `i` nicht verwendet wird. Das könnte mit `_i` verhindert werden.
+
+# MATCH
+
+Doku:
+https://doc.rust-lang.org/std/keyword.match.html
+
+Vergleichbar mit `switch` in C#
+
+```rust
+let number = 58;
+
+match number {
+	1 => println!("FALSCH"), // Match ist 1
+	58 => println!("RICHTIG!"),
+	3 => {
+		println!("AUCH SOWAS"); // Mit Anweisungsblock {} moeglich
+		println!("geht");
+	}
+	_ => println!("WEIS NICHT")	// Alles andere
+}
+
+```
+
 # Structs
 
 Doku:
@@ -251,7 +365,7 @@ fn main(){
 
 ## Struct Functions
 
-mit `impl` wird die Funktion dem gleichbenannten Struct zugeordnet. Mit `&self` werden auf die Member zugegriffen entrspricht z.B.: `this` in C#.
+mit `impl` wird die Funktion dem gleichbenannten Struct zugeordnet. Mit `&self` werden auf die Member zugegriffen entrspricht z.B.: `this` in C#. Soll im Parameter noch ein gleicher Struct Typ mit übergeben werden kann `&Self` (Großes S anstatt s) verwendet werden. z.B.: bei der Implementierung eines Vergleichers.
 Die allgemeine Schreibweise von Funktionen ist der Lambda Ausdruck:
 
 `fn name_funktion(PARAMETER) -> RUECKGABEWERT {}`
@@ -268,6 +382,10 @@ impl Circle {
     fn area(&self) -> f64 {
         self.radius * self.radius * std::f64::consts::PI
     }
+
+	fn is_bigger(&self, other: &Self) -> bool {
+		self.radius > other.radius
+	}
 }
 
 fn main(){
@@ -275,31 +393,69 @@ fn main(){
 	    radius: 25.0,
         location_x: 10.0,
         location_y: 298.0,
-	 };
+	};
+
+	let new_circ_2 = Circle {
+	    radius: 12.0,
+        location_x: 10.0,
+        location_y: 298.0,
+	};
+	 
     println!("{:?}", new_circ);
     
     println!("{:?}", new_circ.area());
+	
+	println!("{:?}", new_circ.is_bigger(&new_circ_2));
 }
 ```
 
-# Schleifen
+# ENUMS
+
+Doku:
+https://doc.rust-lang.org/std/keyword.enum.html
+
+In Rust sind Funktionen im Enum möglich 😁:
 
 ```rust
-for i in variable {
-	...
+enum DayOfWeek {
+	Monday,
+	Tuesday,
+	Wednsday,
+	Thursday,
+	Friday,
+	Saturday,
+	Sunday,	
 }
+
+impl DayOfWeek {
+	fn number_of_day(&self) -> u8 {
+		match self {
+			DayOfWeek::Monday => 1,
+			DayOfWeek::Tuesday => 2,
+            DayOfWeek::Wednsday => 3,
+            DayOfWeek::Thursday => 4,
+            DayOfWeek::Friday => 5,
+            DayOfWeek::Saturday => 6,
+            DayOfWeek::Sunday => 7
+		}
+	}
+}
+
+let day = DayOfWeek::Monday;
+
+println!("{}", day.number_of_day());
 ```
 
-Mit Iterator `iter`:
-`(i, &test)` stellen einen Tupel dar.
-Die `string` Variable wird erst in ein byte `.as_bytes()` gewandelt und anschließend mit `.iter().enumerate()` Enumerierbar gemacht.
+Ein einzelner Enum Wert kann verschiedene Datentypen annehmen 😖:
 
 ```rust
-let hello = String::from("Hello World");
+enum User {
+	None,
+	Username(String),
+    Userage(u16),
+}
 
-for (i, &test) in hello.as_bytes().iter().enumerate(){
-        println!("{:?}",&test);
-    }
+let us = User::Username(String::from("BOB")); 
+
+let age = User::Userage(16);
 ```
-
-Diese variante generiert aber einen Kompilerwarnung da `i` nicht verwendet wird. Das könnte mit `_i` verhindert werden.
