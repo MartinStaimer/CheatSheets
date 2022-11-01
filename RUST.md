@@ -68,7 +68,6 @@ fn main() {
 ```rust
 use std::io;
   
-
 fn main() {
     let mut number = String::new();  
 
@@ -79,3 +78,66 @@ fn main() {
     println!("{}", number);
 }
 ```
+
+# Numerische Datentypen
+
+Standard:
+```rust
+let test = 0; //Per Default 32Bit Signed Integer
+
+let testFloat = 2.0; // Per Default 64Bit Floating Point
+```
+
+Explixit:
+```rust
+let test: u8 = 0; // Unsigned 8Bit Integer
+let test: f32 = 0.0; // 32 Bit Float
+let test: i8 = 0; // Signed 8Bit Integer
+```
+
+```rust
+i218::MAX;
+u8::MAX;
+u64::MIN;
+```
+
+Zuweisung in Dezimal, Hex und Binär:
+```rust
+let test1 = 255; // Dezimal
+let test2 = 0xff; // Hexadezimal
+let test3 = 0b11111111; // Binär
+```
+
+# Arrays
+
+```rust
+let testArray = [1,2,3,4,5]; // Signed 32 Integer
+```
+
+Array per Index ausgeben:
+```rust
+fn main() {
+	let testArray = [12,24,56];
+
+	println!("{:?}", testArray[1])
+}
+```
+
+Array mit format! Makro ausgeben:
+```rust
+fn main() {
+	let testArray = [12,24,56];
+
+	println!("{:?}", testArray)
+}
+```
+
+`std::fmt`
+https://doc.rust-lang.org/std/fmt/index.html
+
+Legt ein Array mit 10 Speicherplätzen vom Typ unsigned 8Bit Integer an 
+und weist allen 10 die Zahl 245 zu.
+```rust
+let testArray: [u8; 10] = [245; 10];
+```
+
