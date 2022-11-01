@@ -170,3 +170,84 @@ use std::mem;
 println!("Size in Memory: {}", mem::size_of_value(&test_Array));
 ```
 
+# String
+
+`std::str`
+`std::string::String`
+
+Doku:
+https://doc.rust-lang.org/std/string/struct.String.html
+
+```rust
+let test_Str = "Hello World"; // str => string slice
+
+let test_String = String::from("Hello World"); // Unmutable 
+let mut test_String_2 = String::from("Name"); // Mutable
+
+test_String.push('T'); // Error Variable ist Unmutable
+test_String_2.push('T'); // Kein Fehler Variable ist Mutable!
+```
+
+Index auf Chars innerhalb Strings nicht möglich, Rust zeigt auf Bytes.
+```rust
+println!("{}", test_String[0]); // Error dieser Zugriff auf Chars per Integer ist nicht moeglich!
+
+// Das wuerde funktionieren
+for i in test_String.bytes() {
+	println!("{}", i);
+}
+
+// Das entspicht mehr dem bekannten Muster 😉
+for c in test_String.chars() {
+	println!("{}", c);
+}
+
+```
+
+# Tupel
+
+Doku:
+https://doc.rust-lang.org/std/primitive.tuple.html
+
+```rust
+let tup = (500, "TEST", true, 9.0);
+```
+
+Indexieren:
+```rust
+tup.[NUMMER]
+
+tup.1 // Zugriff per index auf inhalt => startet bei index 0
+
+// oder
+
+let (a,b,c,c) = tup;
+```
+
+# Structs
+
+Doku:
+https://doc.rust-lang.org/std/keyword.struct.html
+
+
+# Schleifen
+
+```rust
+for i in variable {
+	...
+}
+```
+
+Mit Iterator `iter`:
+`(i, &test)` stellen einen Tupel dar.
+Die `string` Variable wird erst in ein byte `.as_bytes()` gewandelt und anschließend mit `.iter().enumerate()` Enumerierbar gemacht.
+
+```rust
+let hello = String::from("Hello World");
+
+for (i, &test) in hello.as_bytes().iter().enumerate(){
+        println!("{:?}",&test);
+    }
+```
+
+Diese variante generiert aber einen Kompilerwarnung da `i` nicht verwendet wird. Das könnte mit `_i` verhindert werden.
