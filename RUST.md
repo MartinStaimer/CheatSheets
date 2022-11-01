@@ -81,6 +81,11 @@ fn main() {
 
 # Numerische Datentypen
 
+`std::primitive`
+
+Doku:
+https://doc.rust-lang.org/std/primitive/index.html
+
 Standard:
 ```rust
 let test = 0; //Per Default 32Bit Signed Integer
@@ -110,34 +115,58 @@ let test3 = 0b11111111; // Binär
 
 # Arrays
 
+Doku:
+https://doc.rust-lang.org/std/primitive.array.html
+
 ```rust
-let testArray = [1,2,3,4,5]; // Signed 32 Integer
+let test_Array = [1,2,3,4,5]; // Signed 32 Integer
 ```
 
 Array per Index ausgeben:
 ```rust
 fn main() {
-	let testArray = [12,24,56];
+	let test_Array = [12,24,56];
 
-	println!("{:?}", testArray[1])
+	println!("{:?}", test_Array[1])
 }
 ```
 
 Array mit format! Makro ausgeben:
 ```rust
 fn main() {
-	let testArray = [12,24,56];
+	let test_Array = [12,24,56,42];
 
-	println!("{:?}", testArray)
+	println!("{:?}", test_Array)
 }
 ```
 
+Auschnitt aus Array:
+```rust
+println!("Slice: {:?}", &test_Array[1..4]) //Exclusiv letzer Zahl
+
+println!("Slice: {:?}", &test_Array[1..=3]) //inklusiv letzer Zahl
+```
+
+
+## Nützliches zu Arrays
 `std::fmt`
 https://doc.rust-lang.org/std/fmt/index.html
 
 Legt ein Array mit 10 Speicherplätzen vom Typ unsigned 8Bit Integer an 
 und weist allen 10 die Zahl 245 zu.
 ```rust
-let testArray: [u8; 10] = [245; 10];
+let test_Array: [u8; 10] = [245; 10];
+```
+
+Länge Array ausgeben:
+```rust
+println!("Length: {}", test_Array.len());
+```
+
+Speicherbedarf ausgeben:
+```rust
+use std::mem;
+
+println!("Size in Memory: {}", mem::size_of_value(&test_Array));
 ```
 
