@@ -1,5 +1,3 @@
-# Powershell
-
 
 ## Remote Shell auf andere Rechner
 

@@ -1,3 +1,4 @@
+# Inhalt
 
 [[RUST#Installation (unter Windows)]]
 [[RUST#Projekt anlegen]]
@@ -7,6 +8,7 @@
 [[RUST#Castings]]
 [[RUST#Arrays]]
 [[RUST#Nützliches zu Arrays]]
+[[RUST#Generics]]
 [[RUST#Vektor]]
 [[RUST#String]]
 [[RUST#Tupel]]
@@ -25,6 +27,7 @@
 [[RUST#Reference Counter RC]]
 [[RUST#Lifetime Annotations]]
 [[RUST#Standard Librarys]]
+[[RUST#ERROR Handling]]
 [[RUST#Arguments bzw. Parameter in Konsolenanwedung übergeben]]
 
 
@@ -46,6 +49,8 @@ rustc --help
 ```
 
 Wenn hier eine ausgabe der Optionen erfolgt ist die PATH Variable angelegt und mit großer wahrscheinlichkeit RUST richtig installiert. -> Wenn nicht hilft evtl. ein Neustart.
+
+[[RUST#Inhalt]]
 
 # Projekt anlegen
 
@@ -92,6 +97,8 @@ use rand::*; // Alles verwenden
 use rand::Rng; // Nur Rng verwenden
 ```
 
+[[RUST#Inhalt]]
+
 # STDOUT, STDERROR and format
 
 ```rust
@@ -113,6 +120,8 @@ fn main() {
 }
 ```
 
+[[RUST#Inhalt]]
+
 # STDIN
 
 ```rust
@@ -128,6 +137,8 @@ fn main() {
     println!("{}", number);
 }
 ```
+
+[[RUST#Inhalt]]
 
 # Numerische Datentypen
 
@@ -163,6 +174,8 @@ let test2 = 0xff; // Hexadezimal
 let test3 = 0b11111111; // Binär
 ```
 
+[[RUST#Inhalt]]
+
 # Castings
 
 Doku:
@@ -175,6 +188,9 @@ let integer_test: u32 = 62000;
 
 let byte_test: u8 = integer_test as u8;
 ```
+
+[[RUST#Inhalt]]
+
 # Arrays
 
 Doku:
@@ -232,6 +248,8 @@ use std::mem;
 println!("Size in Memory: {}", mem::size_of_value(&test_Array));
 ```
 
+[[RUST#Inhalt]]
+
 # Generics
 
 ```rust
@@ -261,9 +279,13 @@ where
 }
 ```
 
+[[RUST#Inhalt]]
+
 # Vektor
 
 `Vec<T>` Ist vergleichbar mit `List<T>` aus C#.
+
+[[RUST#Inhalt]]
 
 # Iter
 
@@ -282,6 +304,7 @@ let first_item &mut TypeOf = items.next().unwrap()
 
 ```
 
+[[RUST#Inhalt]]
 
 # String
 
@@ -329,6 +352,8 @@ let string_as_number = match number.trim().parse::<u32>() {
 };
 ```
 
+[[RUST#Inhalt]]
+
 # Tupel
 
 Doku:
@@ -348,6 +373,8 @@ tup.1 // Zugriff per index auf inhalt => startet bei index 0
 
 let (a,b,c,c) = tup;
 ```
+
+[[RUST#Inhalt]]
 
 # Schleifen
 
@@ -386,6 +413,7 @@ let mut counter = 0;
 }
 ```
 
+[[RUST#Inhalt]]
 
 ## WHILE
 
@@ -408,6 +436,8 @@ let mut counter = 0;
 	// Do Something
 }
 ```
+
+[[RUST#Inhalt]]
 
 ## FOR
 
@@ -441,6 +471,8 @@ for (i, &test) in hello.as_bytes().iter().enumerate(){
 
 Diese variante generiert aber einen Kompilerwarnung da `i` nicht verwendet wird. Das könnte mit `_i` verhindert werden.
 
+[[RUST#Inhalt]]
+
 # MATCH
 
 Doku:
@@ -463,11 +495,16 @@ match number {
 
 ```
 
+[[RUST#Inhalt]]
+
 
 # IF LET
 
 Doku:
 https://doc.rust-lang.org/rust-by-example/flow_control/if_let.html
+
+[[RUST#Inhalt]]
+
 
 # WHILE LET
 
@@ -489,6 +526,8 @@ fn main() {
     iterate_through_nums();
 }
 ```
+
+[[RUST#Inhalt]]
 
 # Functions
 
@@ -517,6 +556,8 @@ fn my_test_func(x: i32) -> i32 {
 
 ```
 
+[[RUST#Inhalt]]
+
 # Closure
 
 Doku:
@@ -528,10 +569,44 @@ Die Parameter kommen zwischen die zwei `||` der Rückgabewert wird mit einem `->
 Vergleichbar einer Lambda Function von C#.
 
 ```rust
-let closureTest = |x: i32| -> i32 {x * x};
+// Simple Block
+let y: i32 = 5;
+let addition = |x: i32| x + y;
+println!("{}", addition(5));
 
+// weitere Möglichkeit (like an Function Pointer)
+let closureTest = |x: i32| -> i32 {x * x};
 let erg = closureTest(36);
+
+// if single line Expression
+let closureTest = |x: i32| x * x;
+
+// noch kleiner
+let closureTest = |x| x * x;
+
+// Function Pointer
+fn add (x: i32, y: i32) -> i32 {x +y}
+
+fn calc_and_print(x: i32, y: i32, calculator: fn(i32, i32) -> i32) {
+	let result = calculator(x,y);
+	println!("{}", result);
+}
+
+calc_and_print(1,3,add);
+calc_and_print(1,3,|x, y| x + y); // Or by closure
+
+// Extern variable
+// + '_ ist eine Lifetime Annotation, ohne => Compiler error!
+fn calc_and_print(x: i32, y: i32, calculator:Box<dyn Fn(i32, i32) -> i32 + '_>) {
+	let result = calculator(x,y);
+	println!("{}", result);
+}
+
+let z = 5;
+calc_and_print(1,3, Box::new(|x,y| x + y + z));
 ```
+
+[[RUST#Inhalt]]
 
 # Structs
 
@@ -604,6 +679,8 @@ fn main(){
 }
 ```
 
+[[RUST#Inhalt]]
+
 # Traits
 
 Doku:
@@ -649,7 +726,7 @@ fn main() {
 ```
 
 Noch viel eleganter 😀:
-Es kann eine Funtion erstellt werden die wiederum die Funktion aus dem Trait implementiert. 
+Es kann eine Funktion erstellt werden die wiederum die Funktion aus dem Trait implementiert. 
 D.H.: alle structs die Traitfunktion `calculate_area` implementieren können an die Funktion `do_calculate` übergeben werden.
 ```rust
 trait Area {
@@ -691,6 +768,7 @@ fn main() {
 }
 ```
 
+[[RUST#Inhalt]]
 
 # Konstanten -> Const
 
@@ -699,6 +777,8 @@ Alles im Variablennahmen wird in Großbuchstaben geschrieben.
 ```rust
 const DASISTEINEKONSTANTE: i32 = 15;
 ```
+
+[[RUST#Inhalt]]
 
 # ENUMS
 
@@ -772,11 +852,50 @@ Mehr Info zu `Option<T>`:
 Doku:
 https://doc.rust-lang.org/std/option/index.html
 
+[[RUST#Inhalt]]
+
+
 # Ownership
 
 Doku:
 https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
 
+Beispiel move || :
+Hier erklärt von Rainer Stropek: https://www.youtube.com/watch?v=bgZa9VRBhYU
+```rust
+use std::time::Duration;
+use std::thread;
+
+fn main() {
+    let mut counter = 0;
+    let mut counter_string = String::new();
+  
+    // move Ownership der Variablen in den thread
+    let backgound = thread::spawn(move || {
+        loop {
+            counter += 1;  
+
+            if !counter_string.is_empty() {
+                counter_string.push_str(", ");
+            }  
+
+            counter_string.push_str(&counter.to_string()); 
+
+            println!("{}", counter_string);  
+
+            if counter == 5 {
+                break;
+            }  
+
+            thread::sleep(Duration::from_millis(100));
+        }
+    });  
+
+    backgound.join().unwrap();
+}
+```
+
+[[RUST#Inhalt]]
 
 # BOX Heap Pointer
 
@@ -797,6 +916,7 @@ fn main() {
 }
 ```
 
+[[RUST#Inhalt]]
 
 # Reference Counter RC
 
@@ -837,6 +957,8 @@ fn main() {
     println!("{:#?}", bike1);
 }
 ```
+
+[[RUST#Inhalt]]
 
 # Lifetime Annotations
 
@@ -897,6 +1019,66 @@ fn main() {
 }
 ```
 
+[[RUST#Inhalt]]
+
+# ERROR Handling
+
+Doku:
+https://doc.rust-lang.org/rust-by-example/error.html
+
+Beispiel für das öffnen eines Files, mit `panic!()` wird das Progamm hier abgebrochen.
+
+```rust
+let f = File::open("test.txt");
+
+let f = match f {
+	Ok(file) => file,
+	Err(error) => match error.kind() {
+		ErrorKind::NotFound => panic!("File not found!"),
+		_ => panic!("Unknown error!"),
+	};
+}
+
+// Option Some und None
+// => https://doc.rust-lang.org/std/option/enum.Option.html
+fn function_opt(x: i32) -> Option<i32> {
+	if x >= 0 {
+		return some(val + 23);
+	}
+	None
+}
+
+// Result Ok and Err
+// => https://doc.rust-lang.org/std/result/enum.Result.html
+fn function_result(x: i32) -> Result<i32, String> {
+	if x >= 0 {
+		return Ok(val + 26);
+	}
+	Err(String::from("Error Message"))
+}
+
+// Auswertung Enum Some None
+// => https://doc.rust-lang.org/std/option/enum.Option.html
+let ret_inp = match function_opt(1) {
+	Some(value) => value,
+	None => panic!("Error")
+};
+
+// Auswertung Enum Ok Err
+// => https://doc.rust-lang.org/std/result/enum.Result.html
+let ret_inp2 = match function_result(2) {
+	Ok(value) => value,
+	Err(err) => panic!("Error")
+};
+
+// Mit Panic
+let exp = function_result(7).expect("Error message");
+// oder kurz (unwrap wirft panic)
+let wrap = function_opt(inp).unwrap();
+
+```
+
+[[RUST#Inhalt]]
 
 # Standard Librarys
 
@@ -908,6 +1090,10 @@ https://doc.rust-lang.org/rust-by-example/std_misc/fs.html
 https://doc.rust-lang.org/std/env/index.html
 https://doc.rust-lang.org/book/ch12-05-working-with-environment-variables.html
 
+`std::io::{Error, ErrorKind`} -> Fehlerunterstuetzung
+
+
+[[RUST#Inhalt]]
 
 # Arguments bzw. Parameter in Konsolenanwedung übergeben
 
@@ -918,4 +1104,6 @@ fn main() {
     let arg: Vec<String> = env::args().collect();
 }
 ```
+
+[[RUST#Inhalt]]
 
