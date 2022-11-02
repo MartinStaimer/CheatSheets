@@ -132,6 +132,18 @@ let test2 = 0xff; // Hexadezimal
 let test3 = 0b11111111; // Binär
 ```
 
+# Castings
+
+Doku:
+https://doc.rust-lang.org/rust-by-example/types/cast.html
+
+
+```rust
+
+let integer_test: u32 = 62000;
+
+let byte_test: u8 = integer_test as u8;
+```
 # Arrays
 
 Doku:
@@ -582,4 +594,68 @@ Mehr Info zu `Option<T>`:
 Doku:
 https://doc.rust-lang.org/std/option/index.html
 
+# Ownership
 
+Doku:
+https://doc.rust-lang.org/book/ch04-01-what-is-ownership.html
+
+
+# BOX Heap Pointer
+
+Doku:
+https://doc.rust-lang.org/book/ch15-01-box.html?highlight=box%3CT%3E#using-a-box-to-store-data-on-the-heap
+https://doc.rust-lang.org/beta/std/boxed/struct.Box.html
+
+Legt den Typen im HEAP ab:
+```rust
+#[derive(Debug)]
+struct Bike {
+    e_bike: bool,
+}
+
+fn main() {
+    let bike1 = Box::new(Bike{e_bike: true});
+    println!("{:#?}", bike1);
+}
+```
+
+
+# Reference Counter RC
+
+Doku:
+https://doc.rust-lang.org/beta/std/rc/struct.Rc.html
+https://doc.rust-lang.org/book/ch15-04-rc.html
+
+Pointer auf Speicher der mehrfach verwendet werden kann (Ownership bei Rust).
+
+Problem:
+```rust
+#[derive(Debug)]
+struct Bike {
+    e_bike: bool,
+}
+
+fn main() {
+    let bike1 = Bike{e_bike: true};
+    let bike2 = bike1; // Move Ownership 😑
+
+    println!("{:#?}", bike1);
+}
+```
+
+Loesung mit RC:
+```rust
+use std::rc::Rc; 
+
+#[derive(Debug)]
+struct Bike {
+    e_bike: bool,
+}
+
+fn main() {
+    let bike1 = Rc::new(Bike{e_bike: true});
+    let bike2 = bike1.clone(); // Clone Pointer 😁   
+
+    println!("{:#?}", bike1);
+}
+```
