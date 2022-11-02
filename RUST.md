@@ -1,4 +1,30 @@
 
+[[RUST#Installation (unter Windows)]]
+[[RUST#Projekt anlegen]]
+[[RUST#STDOUT, STDERROR and format]]
+[[RUST#STDIN]]
+[[RUST#Numerische Datentypen]]
+[[RUST#Castings]]
+[[RUST#Arrays]]
+[[RUST#Nützliches zu Arrays]]
+[[RUST#String]]
+[[RUST#Tupel]]
+[[RUST#Schleifen]]
+[[RUST#MATCH]]
+[[RUST#IF LET]]
+[[RUST#WHILE LET]]
+[[RUST#Functions]]
+[[RUST#Closure]]
+[[RUST#Structs]]
+[[RUST#ENUMS]]
+[[RUST#Ownership]]
+[[RUST#BOX Heap Pointer]]
+[[RUST#Reference Counter RC]]
+[[RUST#Lifetime Annotations]]
+
+
+
+
 # Installation (unter Windows)
 
 Erst müssen die Microsoft Bulid Tools für C++ installiert werden (Achtung sind über 4 GB)
@@ -659,3 +685,64 @@ fn main() {
     println!("{:#?}", bike1);
 }
 ```
+
+# Lifetime Annotations
+
+Doku:
+https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+
+Problem:
+Compiliert nicht da der Zeiger bzw. die Referenz der Rückgabe der Funktion auf einen ungültigen Speicherplatz zeigt.
+```rust
+#[derive(Debug)]
+struct Bike {
+    e_bike: bool,
+    size: u32,
+}
+
+fn compare_bikes (x: &Bike, y: &Bike) -> &Bike {
+    if x.size > y.size {
+        x
+    } else {
+        y
+    }
+}
+  
+fn main() {
+    let bike1 = Bike{e_bike: true, size: 10};
+    let bike2 = Bike{e_bike: false, size: 15};  
+   
+    let result = compare_bikes(&bike1, &bike2);  
+
+    println!("{:#?}", result)
+}
+```
+
+Lösung: 
+Verwenden von Lifetime Annotations. Gibt der Referenz eine Lifetime über den Scope hinaus. -> `'a`
+```rust
+#[derive(Debug)]
+struct Bike {
+    e_bike: bool,
+    size: u32,
+}
+
+fn compare_bikes<'a> (x: &'a Bike, y: &'a Bike) -> &'a Bike {
+    if x.size > y.size {
+        x
+    } else {
+        y
+    }
+}
+
+fn main() {
+    let bike1 = Bike{e_bike: true, size: 10};
+    let bike2 = Bike{e_bike: false, size: 15};  
+
+    let result = compare_bikes(&bike1, &bike2);
+
+    println!("{:#?}", result)
+}
+```
+
+
