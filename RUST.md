@@ -17,7 +17,7 @@
 [[RUST#IF LET]]
 [[RUST#WHILE LET]]
 [[RUST#Functions]]
-[[RUST#Closure]]
+[[RUST#Closure & Function Pointer]]
 [[RUST#Structs]]
 [[RUST#Traits]]
 [[RUST#Konstanten -> Const]]
@@ -558,7 +558,7 @@ fn my_test_func(x: i32) -> i32 {
 
 [[RUST#Inhalt]]
 
-# Closure
+# Closure & Function Pointer
 
 Doku:
 https://doc.rust-lang.org/book/ch13-01-closures.html
@@ -584,6 +584,7 @@ let closureTest = |x: i32| x * x;
 // noch kleiner
 let closureTest = |x| x * x;
 
+
 // Function Pointer
 fn add (x: i32, y: i32) -> i32 {x +y}
 
@@ -604,6 +605,17 @@ fn calc_and_print(x: i32, y: i32, calculator:Box<dyn Fn(i32, i32) -> i32 + '_>) 
 
 let z = 5;
 calc_and_print(1,3, Box::new(|x,y| x + y + z));
+
+// Funktion als T
+fn math<T>(x: i32, y: i32, calculator: T) -> i32
+    where
+        T: Fn(i32, i32) -> i32,
+{
+	calculator(x,y)
+}
+
+let subtr = |x,y| x-y;
+math(10,5, subtr);
 ```
 
 [[RUST#Inhalt]]
