@@ -7,6 +7,7 @@
 [[RUST#Castings]]
 [[RUST#Arrays]]
 [[RUST#Nützliches zu Arrays]]
+[[RUST#Vektor]]
 [[RUST#String]]
 [[RUST#Tupel]]
 [[RUST#Schleifen]]
@@ -16,11 +17,15 @@
 [[RUST#Functions]]
 [[RUST#Closure]]
 [[RUST#Structs]]
+[[RUST#Traits]]
+[[RUST#Konstanten -> Const]]
 [[RUST#ENUMS]]
 [[RUST#Ownership]]
 [[RUST#BOX Heap Pointer]]
 [[RUST#Reference Counter RC]]
 [[RUST#Lifetime Annotations]]
+[[RUST#Standard Librarys]]
+[[RUST#Arguments bzw. Parameter in Konsolenanwedung übergeben]]
 
 
 
@@ -226,6 +231,57 @@ use std::mem;
 
 println!("Size in Memory: {}", mem::size_of_value(&test_Array));
 ```
+
+# Generics
+
+```rust
+struct Newtype<T> {
+    item: T
+}  
+
+fn main() {
+    let _new_item = Newtype {item: String::from("test")};
+    let _new_item2 = Newtype {item: 32};
+}
+```
+
+## Wichtige Traits
+
+```rust
+use std::fmt::Debug;
+use std::fmt::Display;
+
+impl<T> Newtype<T>
+where
+	T: Debug + Display,
+{
+	fn do_something(&self) {
+		println!("{}", self.item);
+	}
+}
+```
+
+# Vektor
+
+`Vec<T>` Ist vergleichbar mit `List<T>` aus C#.
+
+# Iter
+
+```rust
+// by Value Iteration
+let items = TypeOf.into_iter().next().unwrap();
+
+// by Reference
+let mut items = TypeOf.iter(); // => (&TypeOf).into_iter();
+let first_item &TypeOf = items.next().unwrap()
+
+// by mutable Reference
+let mut items = TypeOf.iter_mut(); // => (&mut TypeOf).into_iter();
+let first_item &mut TypeOf = items.next().unwrap()
+
+
+```
+
 
 # String
 
@@ -548,6 +604,102 @@ fn main(){
 }
 ```
 
+# Traits
+
+Doku:
+https://doc.rust-lang.org/book/ch10-02-traits.html
+https://doc.rust-lang.org/rust-by-example/trait.html
+
+Ein Trait in rust ist vergleichbar eines Interfaces in C# => es ist ein Contract.
+
+```rust
+trait Area {
+    fn calculate_area(&self) -> f64;
+}
+
+struct Rectangle {
+    length: f64,
+    wide: f64
+}
+
+struct Circle {
+    radius: f64
+}
+
+impl Area for Rectangle {
+    fn calculate_area(&self) -> f64 {
+        self.length * self.wide
+    }
+}
+  
+
+impl Area for Circle {
+    fn calculate_area(&self) -> f64 {
+        self.radius * self.radius * std::f64::consts::PI
+    }
+}
+  
+fn main() {
+    let circle1 = Circle {radius: 125.12};
+    let rect1 = Rectangle {length: 1256.4, wide: 145.9};  
+
+    println!("{}",circle1.calculate_area());
+    println!("{}",rect1.calculate_area());
+}
+```
+
+Noch viel eleganter 😀:
+Es kann eine Funtion erstellt werden die wiederum die Funktion aus dem Trait implementiert. 
+D.H.: alle structs die Traitfunktion `calculate_area` implementieren können an die Funktion `do_calculate` übergeben werden.
+```rust
+trait Area {
+    fn calculate_area(&self) -> f64;
+}
+
+struct Rectangle {
+    length: f64,
+    wide: f64
+}  
+
+struct Circle {
+    radius: f64
+}
+  
+impl Area for Rectangle {
+    fn calculate_area(&self) -> f64 {
+        self.length * self.wide
+    }
+}
+
+impl Area for Circle {
+    fn calculate_area(&self) -> f64 {
+        self.radius * self.radius * std::f64::consts::PI
+    }
+}
+
+// Hier eine Funtion die das Tait implemntiert
+fn do_calculate(element: &impl Area) {
+    println!("{}", element.calculate_area());
+}  
+
+fn main() {
+    let circle1 = Circle {radius: 125.12};
+    let rect1 = Rectangle {length: 1256.4, wide: 145.9};  
+
+    do_calculate(&circle1);
+    do_calculate(&rect1);
+}
+```
+
+
+# Konstanten -> Const
+
+Alles im Variablennahmen wird in Großbuchstaben geschrieben.
+
+```rust
+const DASISTEINEKONSTANTE: i32 = 15;
+```
+
 # ENUMS
 
 Doku:
@@ -692,7 +844,7 @@ Doku:
 https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
 
 Problem:
-Compiliert nicht da der Zeiger bzw. die Referenz der Rückgabe der Funktion auf einen ungültigen Speicherplatz zeigt.
+Compiliert nicht da der Zeiger bzw. die Referenz der Rückgabe der Funktion auf einen ungültigen Speicherplatz zeigt. Out of scope 😭
 ```rust
 #[derive(Debug)]
 struct Bike {
@@ -745,4 +897,25 @@ fn main() {
 }
 ```
 
+
+# Standard Librarys
+
+`std::fs` -> Filesystem
+https://doc.rust-lang.org/std/fs/
+https://doc.rust-lang.org/rust-by-example/std_misc/fs.html
+
+`std::env` -> Environment
+https://doc.rust-lang.org/std/env/index.html
+https://doc.rust-lang.org/book/ch12-05-working-with-environment-variables.html
+
+
+# Arguments bzw. Parameter in Konsolenanwedung übergeben
+
+```rust
+use std::env;
+
+fn main() {
+    let arg: Vec<String> = env::args().collect();
+}
+```
 
