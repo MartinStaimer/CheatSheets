@@ -10,6 +10,8 @@
 [[RUST#Nützliches zu Arrays]]
 [[RUST#Generics]]
 [[RUST#Vektor]]
+[[RUST#Hash Map]]
+[[RUST#Hash Set]]
 [[RUST#String]]
 [[RUST#Tupel]]
 [[RUST#Schleifen]]
@@ -283,7 +285,74 @@ where
 
 # Vektor
 
+Doku:
+https://doc.rust-lang.org/std/vec/struct.Vec.html
+
 `Vec<T>` Ist vergleichbar mit `List<T>` aus C#.
+
+```rust
+// Init ohne inhalt => Typ angeben!
+let mut numbers: Vec<i32> = vec![];
+
+// Item an Vektor anhängen
+numbers.push(3);
+
+// Das letzte Element entfernen und zurückgeben -> Returns an Option<T>
+let pop_number = numbers.pop().unwrap();
+
+// Wert aus Vector abrufen über get Funktion -> Returns an Option<t>
+// keine Panik wenn index null ist.
+let item = numbers.get(4).unwrap();
+
+```
+
+[[RUST#Inhalt]]
+
+# Hash Map
+
+Doku:
+https://doc.rust-lang.org/std/collections/struct.HashMap.html
+
+`HashMap` ist mit dem `Dictonary<key, value>` aus C# vergleichbar. Es besteht immer aus einem eindeutigem Key und einen zugehörigem Wert.
+
+```rust
+use std::collections::HashMap;
+
+// Initialiersierung mit i32 als key und String als value
+let mut dic: HashMap<i32, String> = HashMap::new();
+
+
+```
+
+[[RUST#Inhalt]]
+
+# Hash Set
+
+Doku:
+https://doc.rust-lang.org/std/collections/struct.HashSet.html
+
+```rust
+use std::collections::HashSet;
+
+// HashSet mit eigenen Datentyp
+// Wichtig sind die Traits Hash, PartialEq, Eq
+
+#[derive(Debug, Hash, PartialEq, Eq)]
+struct Order {
+    number: i32,
+    item: String,
+} 
+
+let set = HashSet::from(
+			[
+				(Order{ number: 1, item: String::from("Bauteil 1")}),
+			    (Order{ number: 2, item: String::from("Bauteil 2")})
+			]);
+
+// Beispiel Hash Sets verbinden
+
+let
+```
 
 [[RUST#Inhalt]]
 
@@ -338,6 +407,20 @@ for c in test_String.chars() {
 	println!("{}", c);
 }
 
+```
+
+Concat von Strings:
+Mit dem `format!` makro lassen sich strings zusammenfassen.
+
+```rust
+let s1 = String::from("Hello");
+let s2 = String::from("world");
+    
+let con = format!("{}, {}", s1, s2);
+
+println!("{}", s1); // Ownership bleibt vorhanden kein move in format!
+    
+println!("{}", con);
 ```
 
 Casten von Strings (Bespiel):
