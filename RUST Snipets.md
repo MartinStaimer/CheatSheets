@@ -3,6 +3,8 @@
 [[RUST Snipets#Vector of u8 to string]]
 [[RUST Snipets#String Parse]]
 [[RUST Snipets#Hash Set Operations]]
+[[RUST Snipets#Filter mit predicate (EQ => Linq C )]]
+[[RUST Snipets#Fun with iterators]]
 
 
 # Vector of u8 to string
@@ -82,6 +84,98 @@ println!("{:?}", dif_func);
 // {2}
 // {4, 1}
 // [4, 1]
+```
+
+[[RUST Snipets#Inhalt]]
+
+
+# Filter mit predicate (EQ => Linq C#)
+
+Ers wird der Paramteter `Vec` in eine iteration zerlegt. jetzt wird über die Filterfunktion ein abgleich durchgeführt in diesem Fall `|val| val.contains("gruen")` und anschließend wieder zu einem `Vec` zusammengefasst.
+
+```rust
+// Filteroption ist hart kodiert
+fn filter_green(data: &mut Vec<String>) -> Vec<&String> {
+    data.iter()
+        .filter(|val| val.contains("gruen"))
+        .collect()
+}
+
+// Filteroption wird als Parameter übergeben
+fn filter_green_match(data: &mut Vec<String>, filter_opt: String) -> Vec<&String> {
+    data.iter()
+        .filter(|val| val.contains(filter_opt.as_str()))
+        .collect()
+}
+
+fn main() {
+
+	let mut list_data: Vec<String> = vec![String::from("schwarz"),
+                                          String::from("gelb"),
+                                          String::from("gruen")];
+
+    let filtered_green = filter_green(&mut list_data);
+    
+    let filtered_green_match = filter_green_match(&mut list_data, 
+                                                  String::from("gruen"));
+
+    println!("{:?}", filtered_green);
+    println!("{:?}", filtered_green_match);
+}
+```
+
+[[RUST Snipets#Inhalt]]
+
+# Fun with iterators
+
+## zip
+
+Doku:
+https://doc.rust-lang.org/stable/std/iter/fn.zip.html
+
+```rust
+fn zipper(array_1: Vec<i32>, array_2: Vec<i32>) {
+    for (val_1, val_2) in array_1.iter().zip(array_2.iter()) {
+        println!("{:?},{:?}", val_1, val_2)
+    }
+}
+
+fn main() {
+    let test_vec = vec![1,2,3,4,5,6,7];
+    let test_vec2 = vec![8,9,10,11,12]; 
+
+    zipper(test_vec, test_vec2);
+}
+
+// Ausgabe
+1,8
+2,9
+3,10
+4,11
+5,12
+```
+
+
+## For loop alternative -> for_each(closure)
+
+```rust
+fn show_element(array_1: &Vec<i32>) {
+    array_1.iter().for_each(|val| println!("{}", val))
+}
+
+fn main() {
+    let test_vec = vec![1,2,3,4,5,6,7];
+    show_element(&test_vec);
+}
+
+// Ausgabe
+1
+2
+3
+4
+5
+6
+7
 ```
 
 [[RUST Snipets#Inhalt]]

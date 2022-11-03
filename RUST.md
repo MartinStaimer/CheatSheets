@@ -12,6 +12,7 @@
 [[RUST#Vektor]]
 [[RUST#Hash Map]]
 [[RUST#Hash Set]]
+[[RUST#Iter]]
 [[RUST#String]]
 [[RUST#Tupel]]
 [[RUST#Schleifen]]
@@ -330,6 +331,8 @@ let mut dic: HashMap<i32, String> = HashMap::new();
 
 Doku:
 https://doc.rust-lang.org/std/collections/struct.HashSet.html
+
+Intern: [[RUST Snipets#Hash Set Operations]]
 
 ```rust
 use std::collections::HashSet;
