@@ -64,6 +64,13 @@ Namenskonvention ist Snake-Case also z.B.: `hello_world`
 cargo new {NAME}
 ```
 
+Mit `cargo new {NAME} --lib` wird eine Library ohne executable angelegt.
+Namenskonvention ist Snake-Case also z.B.: `hello_world`
+
+```cmd
+cargo new {NAME} --lib
+```
+
 Version kontrollieren:
 ```cmd
 rustc --version
@@ -360,6 +367,8 @@ let
 [[RUST#Inhalt]]
 
 # Iter
+
+Intern: [[RUST Snipets#Fun with iterators]] 😉
 
 ```rust
 // by Value Iteration

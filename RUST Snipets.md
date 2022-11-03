@@ -132,6 +132,7 @@ fn main() {
 
 Doku:
 https://doc.rust-lang.org/stable/std/iter/fn.zip.html
+https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/core/iter/trait.Iterator.html#method.zip
 
 ```rust
 fn zipper(array_1: Vec<i32>, array_2: Vec<i32>) {
@@ -158,6 +159,9 @@ fn main() {
 
 ## For loop alternative -> for_each(closure)
 
+Doku:
+https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/core/iter/trait.Iterator.html#method.for_each
+
 ```rust
 fn show_element(array_1: &Vec<i32>) {
     array_1.iter().for_each(|val| println!("{}", val))
@@ -176,6 +180,81 @@ fn main() {
 5
 6
 7
+```
+
+
+## Flatten -> baue aus mehrdimensionalen Arrays 1dimensionale
+
+Doku:
+https://doc.rust-lang.org/std/iter/struct.Flatten.html
+
+```rust
+fn flatten_arrays(array_1: &[[char; 5]; 2]) {
+    array_1.iter().flatten().for_each(|val| print!("{}-", val))
+}
+
+fn main() {  
+    let test_array = [['a','b','c','d','e'],['f','g','h','i','j']];
+
+    flatten_arrays(&test_array);
+}
+
+// Augabe
+a-b-c-d-e-f-g-h-i-j-
+```
+
+## Richtig kranker scheiß -> Ultimativer iter Baum
+
+Hier wird ein Array mit Strings in eine Struct `Bestellung` geparst und anschließend gefiltert.
+Nur Bestellungen über 4 Kg werden erfasst.
+
+```rust
+#[derive(Debug)]
+struct Bestellung {
+    pos: u32,
+    frucht: String,
+    kg: u32,
+}
+
+fn main() {  
+    let bestellung_raw = ["1 Birne 50",
+                          "2 Apfel 5",
+                          "3 Zitrone 1"];
+
+    let bestellung_pretty: Vec<Bestellung> = bestellung_raw.iter()
+         .map(|val| {
+	        let mut s = val.split(' ');
+	        let pos = s.next()?.parse::<u32>().ok()?;
+	        let frucht = s.next()?.to_string();
+	        let kg = s.next()?.parse::<u32>().ok()?; 
+
+	        Some(Bestellung{pos, frucht, kg})
+		  })
+	      .filter(|val| match val {
+	        Some(v) => v.kg > 4,
+	        None => false,
+	      })
+	      .flatten()
+	      .collect();
+ 
+
+    println!("{:#?}", bestellung_pretty);
+}
+
+// Ausgabe
+[
+    Bestellung {
+        pos: 1,
+        frucht: "Birne",
+        kg: 50,
+    },
+    Bestellung {
+        pos: 2,
+        frucht: "Apfel",
+        kg: 5,
+    },
+]
+
 ```
 
 [[RUST Snipets#Inhalt]]
