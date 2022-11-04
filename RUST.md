@@ -2,6 +2,9 @@
 
 [[RUST#Installation (unter Windows)]]
 [[RUST#Projekt anlegen]]
+[[RUST#Unit Tests]]
+[[RUST#Dokumentation]]
+[[RUST#Manifest]]
 [[RUST#STDOUT, STDERROR and format]]
 [[RUST#STDIN]]
 [[RUST#Numerische Datentypen]]
@@ -108,6 +111,63 @@ fn function() {
 }
 ```
 
+Aufteilen in mehrere Dateien:
+Einen neuen Ordner unter `src` anlegen -> in diesem Beispiel `new_mod` und in diesem Ordner eine neue Datei mit dem Namen `mod.rs`. In die `mod.rs` kommt jetzt der Code der ausgelagert wird. Ist EQ Namespaces in C#.
+
+Ausgelagterter Code:
+
+`/src/new_mod/mod.rs`
+```rust
+pub fn test<'a>(x: &'a u32, y: &'a u32) -> u32 {
+    x * y
+}
+```
+
+Wird so aufgerufen:
+
+`/src/lib.rs`
+```rust
+mod new_mod;  
+
+#[cfg(test)]
+mod tests {
+    use super::*;  
+
+    #[test]
+    fn multi_test() {
+        let result = new_mod::test(&25, &63);
+        assert_eq!(result, 1575);
+    }
+}
+```
+
+Dass kann auch geschachtelt werden. Neuen Unterordner unter `new_mod` erstellen und wieder eine `mod.rs` einfuegen. -> `/src/new_mod/sub_mod/mod.rs`
+
+## Workspace
+
+Doku:
+https://doc.rust-lang.org/cargo/reference/workspaces.html
+
+1. neuen Ordner anlegen -> Bsp: `NEW_POJECT`
+2. `cargo.toml` erstellen und folgendes einfuegen:
+
+```toml
+[workspace]
+
+members = ["main", "lib"]
+```
+
+3. Erstellen `main` mit `cargo new main`
+4. Erstellen `lib` mit `cargo new lib --lib`
+5. `lib` Dependency Eintragen in der `main/Cargo.toml`
+
+```toml
+[dependencies]
+lib = {path="../lib"}
+```
+
+6. Mit `cargo build` testen ob alles Kompiliert.
+
 Externe Pakete:
 https://crates.io/
 
@@ -126,6 +186,63 @@ use rand::*; // Alles verwenden
 
 use rand::Rng; // Nur Rng verwenden
 ```
+
+[[RUST#Inhalt]]
+
+# Unit Tests
+
+Doku:
+https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html
+https://doc.rust-lang.org/reference/attributes/testing.html
+
+Hier ein assert_eq (Ergebniss, Soll):
+
+Scope auf mod: `use super::**;`
+Test init: `#[cfg(test)]`
+Testfunktion def. : `#[test]`
+Panik erwarten: `#[should_panic]` 
+
+Ausfuehren mit: `cargo test` 
+https://doc.rust-lang.org/cargo/guide/tests.html
+https://doc.rust-lang.org/cargo/commands/cargo-test.html
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;  
+
+    #[test]
+    fn multi_test() {
+        let result = new_mod::test_func(&25, &63);
+        assert_eq!(result, 1575);
+    }
+    
+    #[test]
+    #[shuold_panic]
+    fn multi_test2() {
+        let result = new_mod::test_func(&-0, &63);        
+    }
+}
+```
+
+[[RUST#Inhalt]]
+
+# Dokumentation
+
+Doku: 
+https://doc.rust-lang.org/cargo/commands/cargo-doc.html
+https://doc.rust-lang.org/rustdoc/what-is-rustdoc.html
+
+Dokumentation erstellen und im Standardbrowser oeffnen:
+`cargo doc --open`
+
+
+[[RUST#Inhalt]]
+
+# Manifest
+
+Doku:
+https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [[RUST#Inhalt]]
 
@@ -1207,30 +1324,5 @@ let wrap = function_opt(inp).unwrap();
 
 [[RUST#Inhalt]]
 
-# Standard Librarys
 
-`std::fs` -> Filesystem
-https://doc.rust-lang.org/std/fs/
-https://doc.rust-lang.org/rust-by-example/std_misc/fs.html
-
-`std::env` -> Environment
-https://doc.rust-lang.org/std/env/index.html
-https://doc.rust-lang.org/book/ch12-05-working-with-environment-variables.html
-
-`std::io::{Error, ErrorKind`} -> Fehlerunterstuetzung
-
-
-[[RUST#Inhalt]]
-
-# Arguments bzw. Parameter in Konsolenanwedung übergeben
-
-```rust
-use std::env;
-
-fn main() {
-    let arg: Vec<String> = env::args().collect();
-}
-```
-
-[[RUST#Inhalt]]
 

@@ -5,7 +5,8 @@
 [[RUST Snippets#Hash Set Operations]]
 [[RUST Snippets#Filter mit predicate (EQ => Linq C )]]
 [[RUST Snippets#Fun with iterators]]
-
+[[RUST Snippets#Standard Librarys]]
+[[RUST Snippets#Arguments bzw. Parameter in Konsolenanwedung übergeben]]
 
 # Vector of u8 to string
 
@@ -255,6 +256,33 @@ fn main() {
     },
 ]
 
+```
+
+[[RUST Snippets#Inhalt]]
+
+# Standard Librarys
+
+`std::fs` -> Filesystem
+https://doc.rust-lang.org/std/fs/
+https://doc.rust-lang.org/rust-by-example/std_misc/fs.html
+
+`std::env` -> Environment
+https://doc.rust-lang.org/std/env/index.html
+https://doc.rust-lang.org/book/ch12-05-working-with-environment-variables.html
+
+`std::io::{Error, ErrorKind`} -> Fehlerunterstuetzung
+
+
+[[RUST Snippets#Inhalt]]
+
+# Arguments bzw. Parameter in Konsolenanwedung übergeben
+
+```rust
+use std::env;
+
+fn main() {
+    let arg: Vec<String> = env::args().collect();
+}
 ```
 
 [[RUST Snippets#Inhalt]]
