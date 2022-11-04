@@ -88,6 +88,26 @@ cd {Projektordner}
 cargo run
 ```
 
+## Projektorganisation
+
+Per default ist alles in `rust` private. Soll eine Funktion Public verfuegbar gemacht werden muss vor die Funktion ein `pub` geschrieben werden. 
+
+```rust
+pub mod name_of_module {
+	pub fn interface_to_mod(){
+		print_new_content();
+	}
+
+	fn print_new_content() {
+		println!("Hello from my module");
+	}
+}
+
+fn function() {
+	name_of_module::interface_to_mod();
+}
+```
+
 Externe Pakete:
 https://crates.io/
 
