@@ -339,7 +339,7 @@ let mut dic: HashMap<i32, String> = HashMap::new();
 Doku:
 https://doc.rust-lang.org/std/collections/struct.HashSet.html
 
-Intern: [[RUST Snipets#Hash Set Operations]]
+Intern: [[RUST Snippets#Hash Set Operations]]
 
 ```rust
 use std::collections::HashSet;
@@ -368,7 +368,7 @@ let
 
 # Iter
 
-Intern: [[RUST Snipets#Fun with iterators]] 😉
+Intern: [[RUST Snippets#Fun with iterators]] 😉
 
 ```rust
 // by Value Iteration
