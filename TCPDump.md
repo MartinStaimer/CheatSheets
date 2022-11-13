@@ -4,6 +4,13 @@
 sudo tcpdumo --list-interfaces
 ```
 
+oder:
+
+```bash
+ip addr show
+```
+
+
 ## Lesen Netzwerkverkehr und schreiben in PCAP
 
 ```bash
@@ -20,3 +27,9 @@ arp, fddi, icmp, ip, ip6, rarp, tcp, udp
 sudo tcpdump {PROTOKOLL}
 ```
 
+
+## Oeffnen pcap
+
+```bash
+wireshark {NAMEOFFILE}.pcap
+```
