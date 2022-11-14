@@ -12,13 +12,13 @@ Soll z.B. nach der Verarbeitung der TextBox Inhalt gelöscht werden, kann ein Pr
 ```XAML
 
 <TextBox x:Name="Insert" Width="600" AcceptsReturn="False" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.InputBindings>
-                    <KeyBinding
-                        Key="Return"
+        <TextBox.InputBindings>
+        	<KeyBinding
+                	Key="Return"
                         Command="{Binding InputNewItem}"
-                        CommandParameter="{Binding Path=Text, ElementName=Insert}"/>                       
-                </TextBox.InputBindings>
-            </TextBox>
+        	  	CommandParameter="{Binding Path=Text, ElementName=Insert}"/>                       
+	</TextBox.InputBindings>
+</TextBox>
             
 ```
 
