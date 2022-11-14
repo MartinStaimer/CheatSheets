@@ -7,6 +7,8 @@
 [[RUST Snippets#Fun with iterators]]
 [[RUST Snippets#Standard Librarys]]
 [[RUST Snippets#Arguments bzw. Parameter in Konsolenanwedung übergeben]]
+[[RUST Snippets#Eigener Iterator]]
+
 
 # Vector of u8 to string
 
@@ -282,6 +284,55 @@ use std::env;
 
 fn main() {
     let arg: Vec<String> = env::args().collect();
+}
+```
+
+[[RUST Snippets#Inhalt]]
+
+# Eigener Iterator
+
+Doku:
+https://doc.rust-lang.org/stable/std/iter/
+
+```rust
+struct LineItems<'a> {
+    line: &'a str,
+    delimiter: &'a str,
+    counter: usize,
+}  
+
+// Impl Trait Iterator
+// Type Item
+// fn next(&mut self) -> Option<Self::Item>;
+
+impl<'a> Iterator for LineItems<'a> {
+    type Item = &'a str;  
+
+	fn next(&mut self) -> Option<Self::Item> {
+       let split = &self.line.split(&self.delimiter).collect::<Vec<&str>>();
+       if split.len() > self.counter {
+		   let ret:Option<&str> = Some(split[self.counter]);
+		   self.counter += 1;
+	       ret
+	    } else {
+		   None
+		}
+    }
+}  
+
+fn main() {
+
+    let line_csv = String::from("34;Tomaten;10;56;12345;gebucht");  
+
+    let content_line = LineItems {
+        line: &line_csv,
+        delimiter: ";",
+        counter: 0,
+    };
+
+    for pos in content_line {
+        println!("{}", pos);
+    }
 }
 ```
 

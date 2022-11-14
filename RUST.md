@@ -15,7 +15,7 @@
 [[RUST#Vektor]]
 [[RUST#Hash Map]]
 [[RUST#Hash Set]]
-[[RUST#Iter]]
+[[RUST#Iterator]]
 [[RUST#String]]
 [[RUST#Tupel]]
 [[RUST#Schleifen]]
@@ -503,7 +503,7 @@ let
 
 [[RUST#Inhalt]]
 
-# Iter
+# Iterator
 
 Intern: [[RUST Snippets#Fun with iterators]] 😉
 
@@ -1325,4 +1325,100 @@ let wrap = function_opt(inp).unwrap();
 [[RUST#Inhalt]]
 
 
+# Threads
 
+`use std::thread;`
+
+Thread erstellen:
+```rust
+let handle = thread::spawn(|| {
+	//TODO
+});
+```
+
+Auf Fertgstellung des Threads warten:
+```rust
+handle.join().unwrap();
+```
+
+Thread variable von aussen uebergeben:
+Achtung Variable ist nicht nach dem move in den Thread fuer andere Scopes nicht mehr verfuegbar.
+```rust
+let list = vec![1,2,3,4,5,6]
+
+let handle = thread::spawn(move || {
+	for item in list {
+		println!("{}", item);
+	}
+
+});
+
+handle.join().unwrap();
+```
+
+Channel -> Daten aus Trhred senden:
+```rust
+use std::sync::mpsc::channel;
+use std::thread;
+
+fn main() {
+
+	// Channels
+    let (transmitter, reciever) = channel();
+    // clone of Channel for another tread
+    let transmitter2 = transmitter.clone();
+
+	// Move channel 
+    thread::spawn(move || {
+        let msg = String::from("Hello from Thread");
+        transmitter.send(msg).unwrap();
+    });  
+
+    // Move clone of channel, but same reciever!
+    thread::spawn(move || {
+        let msg = String::from("Hello from another Thread");
+        transmitter2.send(msg).unwrap();
+    });
+
+  
+    // Wait for reciever
+    let recieved_msg = reciever.recv().unwrap();
+    let recieved_msg2 = reciever.recv().unwrap();  
+
+    println!("{}", recieved_msg);
+    println!("{}", recieved_msg2);
+}
+```
+
+Mutex, Atomic Reference:
+Stellt einen exklusiven Zugang zur Variable da.
+```rust
+use std::thread;
+use std::sync::{Arc, Mutex};
+
+
+fn main() {    
+
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];  
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut counter = counter.lock().unwrap();  
+			
+            *counter += 1;
+        });  
+
+        handles.push(handle);
+    }  
+
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("{:?}", counter.lock().unwrap());
+}
+```
+
+[[RUST#Inhalt]]
