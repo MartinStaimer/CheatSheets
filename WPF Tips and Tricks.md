@@ -54,7 +54,7 @@ bool OnInputCanExcecuted(object parameter)
 }
 ```
 
-## Autovervollstaendignug fuer Bindings auf Properties eines ViewModels
+## Autovervollstaendigung fuer Bindings auf Properties eines ViewModels
 
 ```XAML
 
