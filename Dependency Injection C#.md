@@ -48,11 +48,4 @@ ServiceProvider services = new ServiceCollection()
                                .BuildServiceProvider();
 ```
 
-# Alle Dateien aus Ordner und Unterordner zurückgeben
 
-```C#
-foreach (var item in Directory.EnumerateFiles(path, "*.txt", SearchOption.AllDirectories))
-{
-  // Do Soemthing
-}        
-```
