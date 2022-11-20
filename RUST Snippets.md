@@ -337,3 +337,23 @@ fn main() {
 ```
 
 [[RUST Snippets#Inhalt]]
+
+
+## Display trait oder eigenes Ausgabeformat
+
+```rust
+
+struct Eur {
+	euros: i32,
+	cents: i32,
+}
+
+
+impl std::fmt::Display for Eur {
+	 fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:0>3},{:0>2}", self.euros, self.cents)
+    }
+}
+
+```
+
