@@ -22,7 +22,7 @@ sudo docker ps
 
 Container starten mit offenen STD IN:
 ```bash
-sudo docker run -it -rm -name {name} ngnix
+sudo docker run -it -rm --name {name} ngnix
 ```
 
 Shell auf Container starten:
