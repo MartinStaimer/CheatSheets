@@ -30,6 +30,21 @@ Shell auf Container starten:
 sudo docker exec -it {NAME} sh
 ```
 
+Container automatisch mit Rechnerhochlauf starten
+```bash
+sudo docker run --restart always
+```
+
+Docker container stoppen
+```bash
+sudo docker stop {NAME}
+```
+
+Docker Container loeschen
+```bash
+sudo docker rm  {NAME}
+```
+
 # Network
 
 Auflistung Netzwerke:
