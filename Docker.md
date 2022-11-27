@@ -183,3 +183,25 @@ sudo docker run -it --rm --network {NAME_OF_NETWORK} \
 --name {NAME_OF_CONTAINER} \
 -d {CONTAINER}
 ```
+
+
+# Docker Compose
+
+Installieren:
+```bash
+sudo apt install docker-compose -y
+```
+
+Start compose:
+```bash
+mkdir {COMPOSE_NAME}
+cd {COMPOSE_NAME}
+/{COMPOSE_NAME}$ touch docker-compose.yaml
+/{COMPOSE_NAME}$ code .
+```
+
+Laufende Compose-Container anzeigen:
+```bash
+sudo docker-compose ps
+```
+
