@@ -1,4 +1,4 @@
-
+sud
 # Installation
 
 ```bash
@@ -28,6 +28,21 @@ sudo docker run -it -rm --name {name} ngnix
 Shell auf Container starten:
 ```bash
 sudo docker exec -it {NAME} sh
+```
+
+Container automatisch mit Rechnerhochlauf starten
+```bash
+sudo docker run --restart always
+```
+
+Docker container stoppen
+```bash
+sudo docker stop {NAME}
+```
+
+Docker Container loeschen
+```bash
+sudo docker rm  {NAME}
 ```
 
 # Network
