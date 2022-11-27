@@ -42,6 +42,22 @@ Details => Driver Bridge:
 sudo docker inspect bridge
 ```
 
+User defined Bridge (Isolation):
+```bash
+sudo docker network create {NAME_OF_BRIDGE}
+```
+
+Container User Bridge zuweisen:
+```bash
+sudo docker run -it --rm --network {NAME_OF_BRIDGE} --name {CONTAINER_NAME} -d {DOCKER_CONTAINER}
+```
+
+Container Host zuweisen:
+(Container runs directly on HOST without isolation!)
+```bash
+sudo docker run -it --rm --network host --name {CONTAINER_NAME} -d {DOCKER_CONATINER}
+```
+
 Port weiterleiten:
 
 Hostport = Port des Containerhosts => Server
