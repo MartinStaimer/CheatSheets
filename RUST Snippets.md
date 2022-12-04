@@ -8,6 +8,8 @@
 [[RUST Snippets#Standard Librarys]]
 [[RUST Snippets#Arguments bzw. Parameter in Konsolenanwedung übergeben]]
 [[RUST Snippets#Eigener Iterator]]
+[[RUST Snippets#Display trait oder eigenes Ausgabeformat]]
+[[RUST Snippets#Release Optimierung]]
 
 
 # Vector of u8 to string
@@ -357,3 +359,16 @@ impl std::fmt::Display for Eur {
 
 ```
 
+
+## Release Optimierung
+
+Cargo.toml
+
+```yaml
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
+panic = "abort"
+```
