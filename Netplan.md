@@ -1,9 +1,9 @@
-
+	
 Path Ubuntu:
 `/etc/netplan/00-installer-config.yaml`
 
 ```bash
-sudo netplan aply
+sudo netplan apply
 ```
 
 
