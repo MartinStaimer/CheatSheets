@@ -238,3 +238,69 @@ switch>enable
 switch#conf t
 switch(config)#
 ```
+
+
+# PortFast und BPDU Guard
+
+## Fastport
+
+Achtung Fastport nur an Switchports verwenden an denen sich ausschließlich Endgräte befinden.
+Nicht an Ports an denen Switches oder ähnliches angeschlossen werden soll.
+
+
+```cisco
+switch>enable
+switch#conf t
+switch(config)#interface {Port}
+switch(config-if)#spanning-tree portfast
+```
+
+## BPDU Guard
+
+Achtung Fastport nur an Switchports verwenden an denen sich ausschließlich Endgräte befinden.
+Nicht an Ports an denen Switches oder ähnliches angeschlossen werden soll.
+
+Portweise
+```cisco
+switch>enable
+switch#conf t
+switch(config)#interface {Port}
+switch(config-if)#spanning-tree guard root
+```
+
+Global
+```cisco
+switch>enable
+switch#conf t
+switch(config)#spanning-tree portfast bpduguard default
+```
+
+Automatisches aktivieren nach errdisable
+```cisco
+switch>enable
+switch#conf t
+switch(config)#errdisable recovery cause bpduguard
+switch(config)#errdisable recovery interval 400
+```
+Interval in Sekunden (Standard = 300 Sekunden).
+
+BPDU Filter am Interface
+```cisco
+switch>enable
+switch#conf t
+switch(config)#interface {Port}
+switch(config-if)#spanning-tree bpdufilter enable
+```
+
+
+
+# Etherchannel Konfig
+
+Zur Logischen zusammenfassung von Physischen Verbindungen (Port Aggregation)
+
+|Mode|Beschreibung|
+|-------|-------|
+|ON Statisch|Einfachste Konfiguration aber ausfall einer Verbindung führt zum gesammtverlust der Verbindung|
+|PAgP|Cisco Protokoll|
+|LACP|ieee Standard|
+
