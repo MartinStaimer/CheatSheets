@@ -1,7 +1,29 @@
+# Nützliches
+
+Zeige Nachbarn
+```cisco
+switch>enable
+switch#show cdp neighbors
+```
+
+Zeige Status  alle Interfaces
+```cisco
+switch>enable
+switch#show interfaces status
+```
+
+Zeige Konfiguration einzelnes Interface
+```cisco
+switch>enable
+switch#show interfaces {INTERFACE}
+```
+
 
 ## Switch auf Werkseinstellung
 
 ```cisco bash
+vtp mode transparent
+delete flash:vlan.dat
 erase startup-config
 ```
 
@@ -229,6 +251,12 @@ switch(config)#no vlan {VLAN-Nr}
 |dynamic desirable|access|trunk|trunk|trunk|
 
 
+## Trunks anzeigen
+
+```cisco
+switch>enable
+switch#show interfaces trunk
+```
 
 
 ## Trunk Port konfigurieren
@@ -236,7 +264,18 @@ switch(config)#no vlan {VLAN-Nr}
 ```cisco
 switch>enable
 switch#conf t
-switch(config)#
+switch(config)#interface {INTERFACE}
+switch(config-if)#switchport mode trunk
+```
+Über `schwitchport mode access` wird das Interface für die Konfiguration vorbeitet.
+
+## VLAN über Trunk entfernen
+
+```cisco
+switch>enable
+switch#conf t
+switch(config)#interface {INTERFACE}
+switch(config-if)#switchport trunk allowed vlan remove {VLAN_NR}
 ```
 
 
@@ -304,3 +343,32 @@ Zur Logischen zusammenfassung von Physischen Verbindungen (Port Aggregation)
 |PAgP|Cisco Protokoll|
 |LACP|ieee Standard|
 
+Achtung Übertragungsgeschwindigket muss auf beiden Seiten gleich sein.
+VLAN muss auf beiden Seiten gleich sein!
+Maximal 8 Links können für einen Channel verwendet werden. Bestpractice ist 2, 4 oder 8 Links.
+
+```cisco
+switch>enable
+switch#conf t
+switch(config)#interface range {PORT} - {PORT}
+switch(config-if-range)#channel-group {NUMBER} mode {ON, PAgP, LACP}
+```
+
+Mode ? liefert alle Optionen.
+Vor der Konfiguration auf beiden Switches etc. sollten die Interfaces abgeschalted werden (shutdown).
+Wenn die Konfig auf beiden Seiten abgeschlossen ist können die Ports wieder eingeschaltet werden (no shutdown)
+
+
+# VTP
+
+### Server
+Hier werden die VLANs Konfiguriert
+
+### Transparent
+Stellt seine VLAN's nicht zur verfügung und synchronisiert sich daher auch nicht.
+Er gibt nur Informationen weiter.
+
+### Client
+Verhält sich Grundlegend wie ein Server kann aber keinerlei Konfiguration bearbeiten oder erstellen.
+
+Achtung, wird ein Switch z.B. aus dem Lager in eine Produktiv - Umgebung eingebaut, muss der VTP Mode auf Trasnparent gesetzt werden um eine mögliche NW Störung zu verhindern.
