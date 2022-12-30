@@ -12,10 +12,28 @@ switch>enable
 switch#show interfaces status
 ```
 
+Zeige Status  alle Interfaces (IP Based)
+```cisco
+switch>enable
+switch#show ip interface brief
+```
+
 Zeige Konfiguration einzelnes Interface
 ```cisco
 switch>enable
 switch#show interfaces {INTERFACE}
+```
+
+Zeige Status  VLAN
+```cisco
+switch>enable
+switch#show vlan brief
+```
+
+Zeige Status  TRUNK
+```cisco
+switch>enable
+switch#show interfaces trunk
 ```
 
 

@@ -20,6 +20,11 @@ Auflisten Container in Betrieb:
 sudo docker ps
 ```
 
+Auflisten vorhandener Images:
+```bash
+sudo docker images
+```
+
 Container starten mit offenen STD IN:
 ```bash
 sudo docker run -it -rm --name {name} ngnix
@@ -28,6 +33,14 @@ sudo docker run -it -rm --name {name} ngnix
 Shell auf Container starten:
 ```bash
 sudo docker exec -it {NAME} sh
+
+//oder
+
+sudo docker run -it --name {NAME} {IMAGE} /bin/bash
+
+//z.B.:
+
+sudo docker run -it --name testcontainer alpine:3.14 /bin/sh
 ```
 
 Container automatisch mit Rechnerhochlauf starten
@@ -45,12 +58,35 @@ Docker Container loeschen
 sudo docker rm  {NAME}
 ```
 
+Docker Container erstellen aber nicht starten
+```bash
+sudo docker create --name {NAME} {IMAGE}
+
+//z.B.:
+
+sudo docker create -it --name test_create apline:3.14 /bin/sh
+```
+
+Docker Container starten
+```bash
+sudo docker start -ai {NAME}
+
+//z.B.:
+
+sudo docker start -ai test_create
+```
+
+Docker Container Logs anzeigen
+```bash
+sudo docker logs {ID}
+```
+
 Port weiterleiten:
 
 Hostport = Port des Containerhosts => Server
 Container = Port des Services im Container
 ```bash
-sudo docker run -itd -rm -p{HOST}:{CONTAINER} -name {NAME} ngnix
+sudo docker run -itd -rm -p{HOST}:{CONTAINER} -name {NAME} {IMAGE}
 ```
 
 
@@ -183,6 +219,9 @@ sudo docker run -it --rm --network {NAME_OF_NETWORK} \
 --name {NAME_OF_CONTAINER} \
 -d {CONTAINER}
 ```
+
+# Docker Build
+
 
 
 # Docker Compose
