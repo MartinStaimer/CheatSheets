@@ -13,16 +13,32 @@ Auflisten aller Container:
 sudo docker ps --all
 
 sudo docker ps -a
+
+//oder
+
+sudo docker container ls -a
 ```
 
 Auflisten Container in Betrieb:
 ```bash
 sudo docker ps
+
+//oder 
+
+sudo docker container ls
 ```
 
 Auflisten vorhandener Images:
 ```bash
 sudo docker images
+
+//oder
+
+sudo docker image list
+
+//oder
+
+sudo docker image ls
 ```
 
 Container starten mit offenen STD IN:
@@ -56,6 +72,15 @@ sudo docker stop {NAME}
 Docker Container loeschen
 ```bash
 sudo docker rm  {NAME}
+
+//oder
+
+sudo docker container rm {CONTAINER_ID}
+```
+
+Docker Image loeschen
+```bash
+sudo docker image rm {IMAGE_ID}
 ```
 
 Docker Container erstellen aber nicht starten
@@ -81,12 +106,90 @@ Docker Container Logs anzeigen
 sudo docker logs {ID}
 ```
 
+Docker Container lokal Commiten und als Image bereitstellen
+```bash
+sudo docker commit {CONTAINER_ID} {REPONAME}/{IMAGENAME}:{VERSION}
+
+//z.B.:
+
+sudo docker commit d75e6909b579 mstaimer/testimage:version1
+```
+
 Port weiterleiten:
 
 Hostport = Port des Containerhosts => Server
 Container = Port des Services im Container
 ```bash
-sudo docker run -itd -rm -p{HOST}:{CONTAINER} -name {NAME} {IMAGE}
+sudo docker run -it -rm -p{HOST}:{CONTAINER} --name {NAME} {IMAGE}
+```
+
+# Images per .tar austauschen
+
+Docker Image in .tar speichern
+```bash
+sudo docker save -o {NAME_TARFILE}.tar {TAG_IMAGE}
+
+//z.B.:
+
+sudo docker save -o scriptserver.tar mstaimer/scriptserver:v2
+```
+
+.tar öffnen und als image verfügbar machen
+```bash
+sudo docker load < {NAME_TARFILE}.tar
+
+//z.B.:
+
+sudo docker load < scriptserver.tar 
+```
+
+
+# Datenhandling
+
+## Host mapping
+
+Verzeichniss von Host in Container mapen
+```bash
+sudo docker run -v {HOSTDIR}:{DOCKERDIR}
+
+//z.B.:
+
+sudo docker run -it -v C:\temp:/home/daten --name test_daten alpine /bin/sh
+```
+
+## Datencontainer
+
+Datencontainer erstellen
+```bash
+sudo create -v {DOCKERDIR} --name {NAME} {IMAGE} true
+
+//z.B.:
+
+sudo docker create -v /home/daten --name datenbox alpine:3.14 true 
+```
+
+Datencontainer einbinden
+```bash
+sudo docker run --volumes-from {CONTAINER_NAME} {IMAGE}
+
+//z.B.:
+
+sudo docker run -it --volumes-from datenbox alpine:3.14 /bin/sh 
+```
+
+Volume erstellen und einbinden
+```bash
+sudo docker volume create {VOLUMENAME}
+
+//z.B.:
+
+sudo docker volume create data
+
+//Zugriff
+sudo docker run -v {VOLUMENAME}:{TARGET_PATH_CONTAINER} {IMAGE}
+
+z.B.:
+sudo docker run -it -v data:/home/data --name testVol alpine /bin/sh
 ```
 
 
@@ -111,6 +214,11 @@ sudo docker inspect bridge
 User defined Bridge (Isolation):
 ```bash
 sudo docker network create {NAME_OF_BRIDGE}
+```
+
+Inspect Bridge:
+```bash
+sudo docker inspect bridge
 ```
 
 Container User Bridge zuweisen:
@@ -222,6 +330,10 @@ sudo docker run -it --rm --network {NAME_OF_NETWORK} \
 
 # Docker Build
 
+Build per Dockerfile:
+```bash
+sudo docker build -t {PRE_TAG}/{TAG}:{VERSION} .
+```
 
 
 # Docker Compose
