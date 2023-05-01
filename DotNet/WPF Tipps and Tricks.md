@@ -97,7 +97,7 @@ Verwendenn
 ```xaml
 <Button x:Name="Btn_Send" 
         content="Send"
-        IsEnabled="{Binding BtnSendEnable, Converter={StaticResource                   BooleanToEnableConverter}}"/>
+        IsEnabled="{Binding BtnSendEnable, Converter={StaticResource BooleanToEnableConverter}}"/>
 ```
 Die Eigenschaft "BtnSendEnable" kommt aus der ViewModel Klasse und ist vom Typ Boolean.
 Mit dem Befehl "Converter={StaticResource BooleanToEnableConverter}" wird die Property BtnSendEnable in einen wert konvertiert der für das WPF Property verständlich ist .
