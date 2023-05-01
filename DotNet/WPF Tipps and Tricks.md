@@ -68,3 +68,36 @@ bool OnInputCanExcecuted(object parameter)
         d:DataContext="{d:DesignInstance d:Type=local:MainViewModel, IsDesignTimeCreatable=True}"    
             
 ```
+
+
+## Value Converter  für Properties von WPF Elementen
+
+Im Beispiel für einen Boolschen Wert
+```c#
+public class BooleanToEnableConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+         => (bool?)value ?? true;
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+         => value as bool?;
+    }
+```
+
+Einbinden in {name}.xaml
+
+```xaml
+<Window.Resources>
+    <local:BooleanToEnableConverter x:Key="BooleanToEnableConverter"/>
+</Window.Resources>
+```
+Verfügbar machen der Klasse "BooleanToEnableConverter"
+
+Verwendenn 
+```xaml
+<Button x:Name="Btn_Send" 
+        content="Send"
+        IsEnabled="{Binding BtnSendEnable, Converter={StaticResource                   BooleanToEnableConverter}}"/>
+```
+Die Eigenschaft "BtnSendEnable" kommt aus der ViewModel Klasse und ist vom Typ Boolean.
+Mit dem Befehl "Converter={StaticResource BooleanToEnableConverter}" wird die Property BtnSendEnable in einen wert konvertiert der für das WPF Property verständlich ist .
