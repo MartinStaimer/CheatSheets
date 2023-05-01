@@ -27,3 +27,24 @@ sudo deluser --remove-home USERNAME
 ```
 
 https://wiki.ubuntuusers.de/deluser/
+
+User Umbenennen:
+```bash
+sudo usermod -l NEWNAME OLDNAME
+```
+
+User einer Gruppe hinzufuegen:
+Achtung nur mit -aG Verwenden! Mit -a wird hinzugefügt ohne die anderen Gruppenzugehörigkeiten zu verändern.
+```bash
+usermod -aG GRUPPE USERNAME
+```
+
+Gruppe hinzufügen:
+```bash
+sudo addgroup GROUPNAME
+```
+
+Grupe löschen:
+```bash
+sudo dellgroup GROUPNAME
+```

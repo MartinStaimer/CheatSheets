@@ -12,4 +12,7 @@ netstat -a
 
 //Anzeige offene Ports und aktive Verbindungen
 netstat -ano
+
+//Anzeige offene Ports und zugehöriges Program mit PID
+sudo netstat -ltnp
 ```
