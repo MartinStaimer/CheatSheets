@@ -11,9 +11,13 @@ named -v
 named -V
 ```
 
-Verzeichniss
+Verzeichnisse
 ```bash
 /etc/bind
+# (named.conf, named.conf.local, named.conf.default-zones, named.conf.options)
+
+/var/cache/bind
+# Zonendateien, evtl. log wenn Konfiguriert
 ```
 
 Status BIND 
@@ -78,7 +82,7 @@ allow-update { none; };
 ```
 
 Bind Zonefile
-db.example
+db.example => /var/cache/bind/db.example (Besitzer ! bind:bind )
 ```bash
 $TTL 3h
 @    IN   SOA   master.example.com. root.example.com. (
@@ -96,8 +100,13 @@ master    IN A  192.168.0.5
 ns1       IN CNAME  master.example.com.
 ```
 
+auch möglich TXT Record (max. 256 Zeichen)
+```bash
+master IN TXT "Network DNS Server"
+```
+
 Bind reverse Zonefile
-db.192.168.0
+db.192.168.0 => /var/cache/bind/db.192.168.0 (Besitzer ! bind:bind )
 ```bash
 $TTL 3h
 @    IN   SOA   master.example.com. root.example.com. (
@@ -112,3 +121,32 @@ $TTL 3h
 5         IN PTR  master.example.com.
 
 ```
+
+
+Logging ändern (named.conf.options)
+```bash
+logging {
+
+  channel example_log {
+    file "example.log" versions 3 size 250k;   
+    severity info;
+  };
+
+  category default {
+    example_log;
+  };
+};
+```
+
+Sollte jetzt unter "/var/cache/bind/example.log" zu finden sein
+https://bind9.readthedocs.io/en/v9_18_4/chapter3.html?highlight=logging#named-conf-base-file
+
+Querylogging 
+```bash
+# Einschalten
+sudo rndc querylog
+
+# Ausschalten -> Wiederhole den Befehl
+sudo rndc querylog
+```
+
