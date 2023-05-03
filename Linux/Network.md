@@ -10,9 +10,14 @@ netstat -p tcp
 // Sockets
 netstat -a
 
-//Anzeige offene Ports und aktive Verbindungen
+// Anzeige offene Ports und aktive Verbindungen
 netstat -ano
 
-//Anzeige offene Ports und zugehöriges Program mit PID
+// Anzeige offene Ports und zugehöriges Program mit PID
 sudo netstat -ltnp
+
+// Offene Ports anzeigen
+ss -ntl
+# oder mit zugehörigem Prozess
+ss -ntle
 ```
