@@ -64,9 +64,26 @@ sudo pdbedit -r -u test -c "[XN]"
 
 https://www.linuxtopia.org/online_books/network_administration_guides/samba_reference_guide/18_passdb_15.html
 
+Policies auflisten
+```bash
+sudo pdbedit -P ""
+```
+
+
 https://www.samba.org/samba/docs/current/man-html/pdbedit.8.html
 
 Installierte Version herausfinden
 ```bahs
 sudo smbstatus -V
 ```
+
+
+Testen Konfiguration smb.conf
+```bash
+#Kompakt
+testparm -s
+
+#Ausführlich
+testparm -sv
+```
+
