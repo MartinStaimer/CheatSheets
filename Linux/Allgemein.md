@@ -66,3 +66,13 @@ ls -l testfile
 -rw-rw-r--+ ..... # Should look loke this with + at the End !!!
 getfacl testfile
 ```
+
+Zeit per ntp server einstellen
+```bash
+sudo apt install ntpdate
+
+sudo ntpdate -b {NTP SERVER}
+# z.B.:
+sudo ntpdate -b ptbtime2.ptb.de
+```
+
