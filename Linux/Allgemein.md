@@ -67,7 +67,7 @@ ls -l testfile
 getfacl testfile
 ```
 
-Zeit per ntp server einstellen
+Zeit per NTP Server einstellen
 ```bash
 sudo apt install ntpdate
 
@@ -76,3 +76,11 @@ sudo ntpdate -b {NTP SERVER}
 sudo ntpdate -b ptbtime2.ptb.de
 ```
 
+
+Dateien innerhalb Ordner nach Zeit löschen
+```bash
+// 5 = 5 Tage 
+
+find -mtime +5 -print0 | xargs -0 /bin/rm -f
+
+```
