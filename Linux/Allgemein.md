@@ -84,3 +84,28 @@ Dateien innerhalb Ordner nach Zeit löschen
 find -mtime +5 -print0 | xargs -0 /bin/rm -f
 
 ```
+
+LVM Ubuntu vergroessern:
+```bash
+
+// LVM Volume anzeigen
+sudo lvdisplay
+
+
+// Freien Speicher auf Partition ermitteln
+sudo pvs
+
+
+// LVM erweitern
+sudo lvextend -L+{groesse}G /dev/{LVM Volume} /dev/sda{Partition}
+
+// z.B.:
+sudo lvextend -L100G /dev/ubuntu-vg/ubuntu-lv /dev/sda3
+
+
+// Erweiterung schreiben
+sudo resize2fs /dev/{LVM Volume}
+
+// z.B.:
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
+```
