@@ -7,3 +7,8 @@
  var diagnosticInfoCollection = new DiagnosticInfoCollection();
 
  _Session.Write(requestHeader, writeValueCollection, out statusCodeCollection, out diagnosticInfoCollection);
+
+_________________________________________________________________________________________________________________________________
+OPC UA Server for docker
+
+registry.gitlab.com/novaas/catalog/nova-school-of-science-and-technology/novaas-prosys-opc-ua-simulation-server
