@@ -1,14 +1,1 @@
- var requestHeader = new RequestHeader();
- var writeValueCollection = new WriteValueCollection
- {
-     new WriteValue() { NodeId = "ns=3;s=\"PLC_PSNEXT_SDB\".\"TEST\"", Value = new DataValue() { Value = true } }
- };
- var statusCodeCollection = new StatusCodeCollection();
- var diagnosticInfoCollection = new DiagnosticInfoCollection();
 
- _Session.Write(requestHeader, writeValueCollection, out statusCodeCollection, out diagnosticInfoCollection);
-
-_________________________________________________________________________________________________________________________________
-OPC UA Server for docker
-
-registry.gitlab.com/novaas/catalog/nova-school-of-science-and-technology/novaas-prosys-opc-ua-simulation-server
