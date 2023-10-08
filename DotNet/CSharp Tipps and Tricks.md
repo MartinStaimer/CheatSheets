@@ -31,3 +31,21 @@ double num = Convert.ToDouble("10,30", Provider);
 // Inhalt von num ist jetzt immer 10.30;
 ```
 
+## Kurzschreibweise if then else
+
+```c#
+var newValue = value == 5 ? 3 : 5;
+
+// entspricht
+varnewValue = 5;
+
+if (value == 5)
+{
+  newValue = 3;
+}
+else
+{
+  newValue = 5
+}
+```
+
