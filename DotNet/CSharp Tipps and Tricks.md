@@ -37,7 +37,7 @@ double num = Convert.ToDouble("10,30", Provider);
 var newValue = value == 5 ? 3 : 5;
 
 // entspricht
-varnewValue = 5;
+var newValue = 5;
 
 if (value == 5)
 {
