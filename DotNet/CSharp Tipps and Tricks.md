@@ -47,5 +47,7 @@ else
 {
   newValue = 5
 }
+
+https://learn.microsoft.com/de-de/dotnet/csharp/language-reference/operators/conditional-operator
 ```
 
