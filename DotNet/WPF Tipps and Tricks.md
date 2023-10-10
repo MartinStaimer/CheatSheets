@@ -101,3 +101,22 @@ Verwendenn
 ```
 Die Eigenschaft "BtnSendEnable" kommt aus der ViewModel Klasse und ist vom Typ Boolean.
 Mit dem Befehl "Converter={StaticResource BooleanToEnableConverter}" wird die Property BtnSendEnable in einen wert konvertiert der für das WPF Property verständlich ist .
+
+## Bindings
+
+### Elementname Binding
+
+Bindungsmode per default als "TwoWay" definiert,
+UpdateSourceTrigger per default als "LostFocus".
+```xaml
+
+<TextBox x:Name="relevantContent" Text="oremlipsumdolar"/>
+
+<TextBox Text="{Binding ElementName=relevantContent, Path=Text}"/>
+
+<TextBox Text="{Binding ElementName=relevantContent, 
+                Path=Text,
+                Mode=TwoWay,
+                UpdateSourceTrigger=LostFocus}"/>
+```
+
