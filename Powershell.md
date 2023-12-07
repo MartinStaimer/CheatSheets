@@ -82,3 +82,24 @@ foreach($item in $items)
     
 }
 ```
+
+## Custom Datatypes
+
+```powershell
+class Units
+{
+    [ValidateNotNullOrEmpty()][string]$days
+    [ValidateNotNullOrEmpty()][string]$path
+
+    Units($Days, $Path){
+        $this.days = $Days
+        $this.path = $Path
+    }
+}
+
+
+$test = [Units]@{
+    Days = "30"
+    Path = "/ctre/"
+}
+```
