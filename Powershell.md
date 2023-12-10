@@ -102,4 +102,32 @@ $test = [Units]@{
     Days = "30"
     Path = "/ctre/"
 }
+
+
+// BSP without Constructor
+class Units
+{
+    [ValidateNotNullOrEmpty()][string]$days
+    [ValidateNotNullOrEmpty()][string]$path
+    
+}
+
+$test = New-Object Units[] 10
+
+$test[1] = [Units]@{
+              days = "30"
+              path = "/test"
+}
+
+$test[2] = [Units]@{
+              days = "5"
+              path = "/test/2"
+}
+
+foreach ($destination in $test)
+{
+    echo $destination.days
+    echo $destination.path
+
+}
 ```
