@@ -17,3 +17,12 @@ openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out serv
 ```
 
 
+To .pem for axum::server
+```bash
+
+openssl x509 -in server.crt -out server.pem
+openssl rsa -in server.key -text > key.pem
+
+```
+
+
