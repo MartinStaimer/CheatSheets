@@ -109,3 +109,29 @@ sudo resize2fs /dev/{LVM Volume}
 # z.B.:
 sudo resize2fs /dev/ubuntu-vg/ubuntu-lv
 ```
+
+Festplatten tools
+
+```bash
+# Verwendeten Speicher anzeigen
+df
+
+# Von Dateien und Ordnern belegten Sepicherplatz anzeigen
+du
+
+# freien Speicher anzeigen
+free
+
+# Partitionen anzeigen
+fdisk -l
+sfdisk -l
+parted -l
+
+# Listet Block devices auf
+lsblk
+
+blkid
+```
+
+
+
