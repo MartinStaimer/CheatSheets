@@ -10,3 +10,7 @@ Untrack files
 git rm --chached <filename>
 ```
 
+Set new repo url
+```bash
+git remote set-url origin https://github.com/benutzername/neues-repo.git
+```
