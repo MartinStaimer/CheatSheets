@@ -9,3 +9,14 @@ Start Server from idrac with commands -> SSH Shell
 | `racadm serveraction status`    | Status des Servers abfragen     |
 
 
+Systeminformationen
+
+#Hardware-Status anzeigen
+racadm getsysinfo
+
+#Sensorenstatus auslesen
+racadm getsel
+
+#Alle Systeminformationen
+racadm getsensorinfo
+
