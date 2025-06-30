@@ -12,11 +12,16 @@ Start Server from idrac with commands -> SSH Shell
 Systeminformationen
 
 #Hardware-Status anzeigen
+```bash
 racadm getsysinfo
+```
 
 #Sensorenstatus auslesen
+```bash
 racadm getsel
+```
 
 #Alle Systeminformationen
+```bash
 racadm getsensorinfo
-
+```
