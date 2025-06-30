@@ -133,5 +133,18 @@ lsblk
 blkid
 ```
 
+Temperaturen auslesen
+
+```bash
+# Alle Sensoren auslesen
+cat /sys/class/thermal/thermal_zone*/temp
+
+# Alle Sensoren mit Beschreibung auslesen
+for zone in /sys/class/thermal/thermal_zone*; do
+    echo "$zone: $(cat $zone/type) - $(cat $zone/temp)"
+done
+
+```
+
 
 
